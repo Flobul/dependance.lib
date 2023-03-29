@@ -1,5 +1,8 @@
 #!/bin/bash
 
+if [ ! -d "/tmp/jeedom/" ]; then
+  mkdir /tmp/jeedom/
+fi
 TMPFOLDER=/tmp/jeedom/${PLUGIN}
 if [ -z $PROGRESS_FILENAME ]; then
 	PROGRESS_FILENAME=dependance
