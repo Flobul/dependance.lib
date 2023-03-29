@@ -38,6 +38,23 @@ echo_failure() {
 	return 1
 }
 
+version_compare() {
+    a=( $(echo "$1" | sed 's/v//' | sed 's/\.0*$//' | tr '.' ' ') )
+    b=( $(echo "$2" | sed 's/v//' | sed 's/\.0*$//' | tr '.' ' ') )
+    for (( i=0; i<${#a[@]}; i++ )); do
+        if (( ${b[$i]:-0} > ${a[$i]:-0} )); then
+            return 1
+        elif (( ${b[$i]:-0} < ${a[$i]:-0} )); then
+            return -1
+        fi
+    done
+    if (( ${#a[@]} < ${#b[@]} )); then
+        return -1
+    else
+        return 0
+    fi
+}
+
 show_time() {
 	num=$1
 	min=0
